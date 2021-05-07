@@ -22,8 +22,8 @@
             html = html + '<ul>';
             for (var i = 0; i < objects.length; i++) {
                 var object = objects[i];
-                html = html + "<li>" + "id: " + object.id + ", name: " + object.name + "<br>" +
-                    object.tweet + +", " + object.time + "</li>";
+                html = html + "<li>" + ">>" + object.id + " [" + object.name + "] " +
+                    object.time + "<br><i>" + object.tweet + "</i></li><br>";
             }
             html = html + '</ul>';
             document.getElementById('result').innerHTML = html;
