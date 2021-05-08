@@ -56,18 +56,27 @@
 
 <body>
     <h1>Tweets</h1>
-    <h2>ツイート</h2>
-    名前:
-    <input id="tf1" value="名無し" type="text">
-    <br> tweet:
-    <input id="tf2" type="text">
-    <button onclick="button1Pressed()">tweet</button>
-    <p id="tweet-result"><br></p>
-    <h2>検索</h2>
-    <input id="tweet-search" value="" placeholder="ツイート内容を入力">
-    <button onclick="button2Pressed()">表示</button>
+    <table>
+        <tr>
+            <td valign="top">
+                <h2>ツイート</h2>
+                名前:
+                <input id="tf1" value="名無し" type="text">
+                <br> tweet:
+                <input id="tf2" type="text">
+                <button onclick="button1Pressed()">tweet</button>
+                <p id="tweet-result"><br></p>
+            </td>
+            <td width="10%"></td>
+            <td valign="top">
+                <h2>検索</h2>
+                <input id="tweet-search" value="" placeholder="ツイート内容を入力">
+                <button onclick="button2Pressed()">表示</button>
+            </td>
+        </tr>
+    </table>
     <hr>
-    <p id="search-result">ここに結果が表示されます</p>
+    <p id="search-result">ここに検索結果が表示されます</p>
 </body>
 
 </html>
