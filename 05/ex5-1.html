@@ -20,13 +20,13 @@
             var objects = await osql.connect(sql);
             console.log(objects);
             var html = "";
-            html = html + "<ul>";
+            html = html + "<table>";
             for (var i = 0; i < objects.length; i++) {
                 var object = objects[i];
-                html = html + "<li>" + ">>" + object.id + " [" + object.name + "] " +
-                    object.time + "<br><i>" + object.tweet + "</i></li><br>";
+                html = html + "<tr><td>" + object.id + "</td><td>" + object.name + "</td>" +
+                    "<td>" + object.tweet + "</td></tr>";
             }
-            html = html + "</ul>";
+            html = html + "</table>";
             document.getElementById("result").innerHTML = html;
         }
     </script>
