@@ -15,18 +15,18 @@
         }
 
         async function doSelect() {
-            var sql = 'select * from Tweets order by time desc limit 20';
+            var sql = "select * from Tweets order by time desc limit 20";
             var objects = await osql.connect(sql);
             console.log(objects);
-            var html = '';
-            html = html + '<ul>';
+            var html = "";
+            html = html + "<ul>";
             for (var i = 0; i < objects.length; i++) {
                 var object = objects[i];
                 html = html + "<li>" + ">>" + object.id + " [" + object.name + "] " +
                     object.time + "<br><i>" + object.tweet + "</i></li><br>";
             }
-            html = html + '</ul>';
-            document.getElementById('result').innerHTML = html;
+            html = html + "</ul>";
+            document.getElementById("result").innerHTML = html;
         }
     </script>
 
