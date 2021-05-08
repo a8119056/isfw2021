@@ -13,7 +13,6 @@
         var x;
         $().ready(function() {
             doSelect();
-            x = 0;
             setInterval(doSelect, 2000);
         });
 
@@ -38,8 +37,6 @@
         }
 
         async function doSelect() {
-            x++;
-            document.getElementById("tweet-result").innerHTML = x;
             var searchWord = document.getElementById("tweet-search").value;
             var sql = "select * from Tweets where tweet like '%" + searchWord + "%' order by time desc limit 20";
             var objects = await osql.connect(sql);
