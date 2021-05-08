@@ -15,7 +15,8 @@
         }
 
         async function doSelect() {
-            var sql = "select * from Tweets order by time desc limit 20";
+            var searchWord = document.getElementById("tweet-search").value;
+            var sql = "select * from Tweets where tweet like '%" + searchWord + "%' order by time desc limit 20";
             var objects = await osql.connect(sql);
             console.log(objects);
             var html = "";
@@ -34,7 +35,7 @@
 
 <body>
     <h1>Tweets</h1>
-    <input id="tweet-search" placeholder="ツイート内容を入力">
+    <input id="tweet-search" value="" placeholder="ツイート内容を入力">
     <button onclick="button1Pressed()">表示</button>
     <hr>
     <p id="result">ここに結果が表示されます</p>
