@@ -32,10 +32,10 @@
             document.getElementById('result').innerHTML = html;
         }
 
-        function deleteUser() {
+        async function deleteUser() {
             var userid = document.getElementById("delete").value;
-            var sql = "delete from Users where name = '" + userid + "'";
-            window.alert(sql);
+            var sql = "delete from Users where id = '" + userid + "'";
+            await osql.connect(sql);
         }
     </script>
 
