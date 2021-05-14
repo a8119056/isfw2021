@@ -29,13 +29,15 @@
                 html = html + '</tr>';
             }
             html = html + '</table>';
-            document.getElementById('result').innerHTML = html;
+            document.getElementById('select-result').innerHTML = html;
         }
 
         async function deleteUser() {
             var userid = document.getElementById("delete").value;
             var sql = "delete from Users where id = '" + userid + "'";
             await osql.connect(sql);
+            document.getElementById("delete-result").innerHTML = "削除しました";
+            execSelect();
         }
     </script>
 
@@ -47,8 +49,9 @@
         <p>削除するユーザーのIDを入力</p>
         <input id="delete" type="text">
         <button onclick="deleteUser()">削除</button>
+        <p id="delete-result"><br></p>
     </div>
-    <p id="result"></p>
+    <p id="select-result"></p>
 </body>
 
 </html>
