@@ -10,7 +10,7 @@
     <script type="text/javascript" src="../osql.js"></script>
 
     <script>
-        $().ready(function () {
+        $().ready(function() {
             execSelect();
         });
 
@@ -48,11 +48,11 @@
 
 <body>
     <h1>User変更</h1>
-    userid:<input id="tf1" value="" type="textfield" disabled>
-    <br>
-    password:<input id="tf2" value="" type="password">
-    <br>
-    name:<input id="tf3" value="" type="textfield">
+    userid:<input id="tf1" value="" type="text" disabled>
+    <br> password:
+    <input id="tf2" value="" type="password">
+    <br> name:
+    <input id="tf3" value="" type="text">
     <button onclick="button2Pressed()">変更</button>
 
     <p id="result"></p>
