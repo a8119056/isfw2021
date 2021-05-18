@@ -19,6 +19,7 @@
             var username = sessionStorage.getItem("username");
             document.getElementById("welcome").innerHTML = "ようこそ" + username + "さん";
             document.getElementById("update").href = "update.html?userid=" + userid;
+            document.getElementById("tweet").href = "tweet.html?username=" + username;
         }
     </script>
 
