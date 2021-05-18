@@ -17,7 +17,6 @@
         function init() {
             var userid = sessionStorage.getItem("userid");
             var username = sessionStorage.getItem("username");
-            window.alert(userid);
             document.getElementById("welcome").innerHTML = "ようこそ" + username + "さん";
             document.getElementById("update").href = "update.html?userid=" + userid;
         }
