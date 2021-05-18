@@ -11,24 +11,24 @@
 
     <script>
         async function buttonPressed() {
-            var userid = document.getElementById('tf1').value;
-            var password = document.getElementById('tf2').value;
+            var userid = document.getElementById("tf1").value;
+            var password = document.getElementById("tf2").value;
 
-            var sql = `select * from Users where id="${userid}";`;
+            var sql = "select * from Users where id = '" + userid + "';";
             var objects = await osql.connect(sql);
             if (objects.length <= 0) {
-                document.getElementById('result').innerHTML = 'ログイン失敗：ユーザが見つかりません';
+                document.getElementById("result").innerHTML = "ログイン失敗：ユーザが見つかりません";
                 return;
             }
             if (objects[0].password != password) {
-                document.getElementById('result').innerHTML = 'ログイン失敗：パスワードが違います';
+                document.getElementById("result").innerHTML = "ログイン失敗：パスワードが違います";
                 return;
             }
 
-            sessionStorage.setItem('userid', objects[0].userid);
-            sessionStorage.setItem('username', objects[0].name);
+            sessionStorage.setItem("userid", objects[0].userid);
+            sessionStorage.setItem("username", objects[0].name);
 
-            location.href = 'usertop.html';
+            location.href = "usertop.html";
         }
     </script>
 
