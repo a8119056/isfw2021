@@ -12,7 +12,6 @@
     <script>
         var x;
         $().ready(function() {
-            setUsername();
             doSelect();
             setInterval(doSelect, 2000);
         });
@@ -23,11 +22,6 @@
 
         function button2Pressed() {
             doSelect();
-        }
-
-        function setUsername() {
-            var username = osql.getParam("username");
-            document.getElementById("tf1").value = username;
         }
 
         async function doInsert() {
@@ -44,19 +38,17 @@
 
         async function doSelect() {
             var searchWord = document.getElementById("tweet-search").value;
-            var sql = "select * from Tweets where tweet like '%" + searchWord + "%' order by time desc limit 20";
+            var sql = "select * from Follows";
             var objects = await osql.connect(sql);
             console.log(objects);
             var html = "";
             html += "<table border=1>";
-            html += "<tr><th>id</th><th>name</th><th>tweet</th><th>time</th></tr>";
+            html += "<tr><th>fromid</th><th>toid</th></tr>";
             for (var i = 0; i < objects.length; i++) {
                 var object = objects[i];
                 html += "<tr>";
-                html += "<td>" + object.id + "</td>";
-                html += "<td>" + object.name + "</td>";
-                html += "<td>" + object.tweet + "</td>";
-                html += "<td>" + object.time + "</td>";
+                html += "<td>" + object.fromid + "</td>";
+                html += "<td>" + object.toid + "</td>";
                 html += "</tr>";
             }
             html += "</table>";
