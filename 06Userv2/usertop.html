@@ -15,8 +15,11 @@
         });
 
         function init() {
+            var userid = sessionStorage.getItem("userid");
             var username = sessionStorage.getItem("username");
+            window.alert(userid);
             document.getElementById("welcome").innerHTML = "ようこそ" + username + "さん";
+            document.getElementById("update").href = "update.html?userid=" + userid;
         }
     </script>
 
@@ -27,7 +30,7 @@
     <p id="welcome">ようこそxxさん</p>
     <hr>
     <ul>
-        <li><a href="update.html">登録情報の変更</a></li>
+        <li><a id="update" href="update.html">登録情報の変更</a></li>
     </ul>
 </body>
 
