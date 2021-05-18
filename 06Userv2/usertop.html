@@ -10,18 +10,6 @@
     <script type="text/javascript" src="../osql.js"></script>
 
     <script>
-        $().ready(function() {
-            init();
-        });
-
-        function init() {
-            var userid = sessionStorage.getItem("userid");
-            var username = sessionStorage.getItem("username");
-            document.getElementById("welcome").innerHTML = "ようこそ" + username + "さん";
-            document.getElementById("update").href = "update.html?userid=" + userid;
-            document.getElementById("tweet").href = "tweet.html?username=" + username;
-            document.getElementById("follow").href = "follow.html?userid=" + userid;
-        }
     </script>
 
 </head>
@@ -30,11 +18,7 @@
     <h1>ユーザトップ</h1>
     <p id="welcome">ようこそxxさん</p>
     <hr>
-    <ul>
-        <li><a id="update" href="update.html">登録情報の変更</a></li>
-        <li><a id="tweet" href="tweet.html">ツイート</a></li>
-        <li><a id="follow" href="follow.html">フォロー</a></li>
-    </ul>
+
 </body>
 
 </html>

@@ -10,7 +10,7 @@
     <script type="text/javascript" src="../osql.js"></script>
 
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             execSelect();
         });
 
@@ -29,15 +29,7 @@
                 html = html + '</tr>';
             }
             html = html + '</table>';
-            document.getElementById('select-result').innerHTML = html;
-        }
-
-        async function deleteUser() {
-            var userid = document.getElementById("delete").value;
-            var sql = "delete from Users where id = '" + userid + "'";
-            await osql.connect(sql);
-            document.getElementById("delete-result").innerHTML = "削除しました";
-            execSelect();
+            document.getElementById('result').innerHTML = html;
         }
     </script>
 
@@ -45,14 +37,7 @@
 
 <body>
     <h1>Users</h1>
-    <div style="margin: 40px 0px 40px 0px;">
-        <h3>ユーザー削除</h3>
-        <p>削除するユーザーのIDを入力してください</p>
-        <input id="delete" type="text">
-        <button onclick="deleteUser()">削除</button>
-        <p id="delete-result"><br></p>
-    </div>
-    <p id="select-result"></p>
+    <p id="result">xxxx</p>
 </body>
 
 </html>
