@@ -15,17 +15,17 @@
         });
 
         async function execSelect() {
-            var userid = osql.getParam('userid');
-            var sql = `select * from Users where id="${userid}";`;
+            var userid = osql.getParam("userid");
+            var sql = "select * from Users where id = '" + userid + "';";
             var objects = await osql.connect(sql);
             if (objects.length <= 0) {
-                document.getElementById('result').innerHTML = 'not found';
+                document.getElementById("result").innerHTML = "not found";
                 return;
             }
             var user = objects[0];
-            document.getElementById('tf1').value = user.id;
-            document.getElementById('tf2').value = user.password;
-            document.getElementById('tf3').value = user.name;
+            document.getElementById("tf1").value = user.id;
+            document.getElementById("tf2").value = user.password;
+            document.getElementById("tf3").value = user.name;
         }
 
         function button2Pressed() {
@@ -33,14 +33,14 @@
         }
 
         async function execUpdate() {
-            var userid = document.getElementById('tf1').value;
-            var password = document.getElementById('tf2').value;
-            var username = document.getElementById('tf3').value;
+            var userid = document.getElementById("tf1").value;
+            var password = document.getElementById("tf2").value;
+            var username = document.getElementById("tf3").value;
 
-            var sql = `update Users set name="${username}", password="${password}" where id="${userid}";`;
+            var sql = "update Users set name = '" + username + "', password='" + password + "' where id = '" + userid + "';";
             var objects = await osql.connect(sql);
 
-            document.getElementById('result').innerHTML = 'OK';
+            document.getElementById("result").innerHTML = "OK";
         }
     </script>
 
