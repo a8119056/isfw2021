@@ -12,22 +12,11 @@
     <script>
         var x;
         $().ready(function() {
-            setUserId();
             showTables();
         });
 
-        function button1Pressed() {
-            followByInput();
-        }
-
-        function setUserId() {
-            var userid = osql.getParam("userid");
-            document.getElementById("tf1").value = userid;
-        }
-
-        async function followByButton(toid) {
+        async function follow(toid) {
             var fromid = osql.getParam("userid");
-
             var sql = `insert into Follows values("${fromid}", "${toid}");`;
             var objects = await osql.connect(sql);
             console.log(objects);
@@ -38,18 +27,18 @@
 
             var toname = objects[0].name;
             document.getElementById("follow-result").innerHTML = "<b>" + toname + "</b>(" + toid + ")さんをフォローしました";
-            document.getElementById("tf2").value = "";
             showTables();
         }
 
         function showTables() {
-            showAllUsers();
+            showUnfollowing();
             showFollowing();
             showFollowers();
         }
 
-        async function showAllUsers() {
-            var sql = "select * from Users;";
+        async function showUnfollowing() {
+            var userid = osql.getParam("userid");
+            var sql = `select id, name from Users left join (select toid, fromid from Users inner join Follows on Users.id = Follows.fromid where id = "${userid}") as X on Users.id = X.toid where fromid is null and id != "${userid}" order by id;`;
             var objects = await osql.connect(sql);
             console.log(objects);
             var html = "";
@@ -60,7 +49,7 @@
                 html += "<tr>";
                 html += "<td>" + object.id + "</td>";
                 html += "<td>" + object.name + "</td>";
-                html += "<td>" + `<button onclick="followByButton('${object.id}')">フォローする</button>` + "</td>";
+                html += "<td>" + `<button onclick="follow('${object.id}')">フォローする</button>` + "</td>";
                 html += "</tr>";
             }
             html += "</table>";
@@ -68,13 +57,13 @@
         }
 
         async function showFollowing() {
-            var fromid = document.getElementById("tf1").value;
+            var fromid = osql.getParam("userid");
             var sql = `select toid, name from Users inner join Follows on Users.id = Follows.toid where fromid = "${fromid}";`;
             var objects = await osql.connect(sql);
             console.log(objects);
             var html = "";
             html += "<table border=1>";
-            html += "<tr><th>toid</th><th>name</th></tr>";
+            html += "<tr><th>id</th><th>name</th></tr>";
             for (var i = 0; i < objects.length; i++) {
                 var object = objects[i];
                 html += "<tr>";
@@ -87,13 +76,13 @@
         }
 
         async function showFollowers() {
-            var toid = document.getElementById("tf1").value;
+            var toid = osql.getParam("userid");
             var sql = `select fromid, name from Users inner join Follows on Users.id = Follows.fromid where toid = "${toid}";`;
             var objects = await osql.connect(sql);
             console.log(objects);
             var html = "";
             html += "<table border=1>";
-            html += "<tr><th>fromid</th><th>name</th></tr>";
+            html += "<tr><th>id</th><th>name</th></tr>";
             for (var i = 0; i < objects.length; i++) {
                 var object = objects[i];
                 html += "<tr>";
@@ -109,25 +98,24 @@
 </head>
 
 <body>
-    <h1>フォロー</h1>
-    フォロー元のID:
-    <input id="tf1" type="text" disabled>
-    <br> フォロー先のID:
-    <input id="tf2" type="text">
-    <button onclick="button1Pressed()">フォローする</button>
-    <p id="follow-result"><br></p>
-    <hr>
-    <div style="float: left; margin-right: 20px;">
-        <h3>ユーザ一覧</h3>
-        <p id="users-table"></p>
+    <div style="width: 98.5%; top: 0; position: fixed; background: #FFFFFF;">
+        <h1>フォロー</h1>
+        <p id="follow-result"><br></p>
+        <hr style="margin-bottom: 0px;">
     </div>
-    <div style="float: left; margin-right: 20px;">
-        <h3>フォロー中</h3>
-        <p id="following-table"></p>
-    </div>
-    <div style="float: left;">
-        <h3>フォロワー</h3>
-        <p id="followers-table"></p>
+    <div style="padding-top: 120px">
+        <div style="float: left; margin-right: 20px;">
+            <h3>未フォロー</h3>
+            <p id="users-table"></p>
+        </div>
+        <div style="float: left; margin-right: 20px;">
+            <h3>フォロー中</h3>
+            <p id="following-table"></p>
+        </div>
+        <div style="float: left;">
+            <h3>フォロワー</h3>
+            <p id="followers-table"></p>
+        </div>
     </div>
 </body>
 
