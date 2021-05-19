@@ -19,10 +19,16 @@
             var userid = osql.getParam("userid");
             var sql = "select id from Users;";
             var objects = await osql.connect(sql);
+            var userExists = false;
             for (var i = 0; i < objects.length; i++) {
                 if (objects[i].id === userid) {
+                    userExists = true;
+                    document.getElementById("main").style.display = "block";
                     showTables();
                 }
+            }
+            if (!userExists) {
+                document.getElementById("follow-result").innerHTML = "ログインIDが不正です<br><a href='index.html'>こちら</a>から再度ログインしてださい";
             }
         }
 
@@ -134,7 +140,7 @@
         <p id="follow-result">ボタンでフォローとフォロー解除を実行します</p>
         <hr style="margin-bottom: 0px;">
     </div>
-    <div style="padding-top: 120px">
+    <div id="main" style="padding-top: 120px; display: none;">
         <div style="float: left; margin-right: 20px;">
             <h3>未フォロー</h3>
             <p id="users-table"></p>
