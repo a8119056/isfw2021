@@ -26,10 +26,11 @@
                 html = html + '<td>' + object.id + '</td>';
                 html = html + '<td>' + object.name + '</td>';
                 html = html + '<td>' + '<a href="update.html?userid=' + object.id + '">変更</a>' + '</td>';
+                html = html + '<td>' + '<button>削除</button></td>';
                 html = html + '</tr>';
             }
             html = html + '</table>';
-            document.getElementById('select-result').innerHTML = html;
+            document.getElementById('result').innerHTML = html;
         }
 
         async function execDelete() {
@@ -45,12 +46,7 @@
 
 <body>
     <h1>Users</h1>
-    <hr> ID:
-    <input id="delete" type="text">
-    <button onclick="execDelete()">削除</button>
-    <p id="delete-result"><br></p>
-    <hr>
-    <p id="select-result"></p>
+    <p id="result"></p>
 </body>
 
 </html>
