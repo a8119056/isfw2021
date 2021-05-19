@@ -20,37 +20,13 @@
             followByInput();
         }
 
-        function button2Pressed() {
-            window.alert("");
-            //followByButton();
-        }
-
         function setUserId() {
             var userid = osql.getParam("userid");
             document.getElementById("tf1").value = userid;
         }
 
-        async function followByInput() {
-            var fromid = document.getElementById("tf1").value;
-            var toid = document.getElementById("tf2").value;
-
-            var sql = `insert into Follows values("${fromid}", "${toid}");`;
-            var objects = await osql.connect(sql);
-            console.log(objects);
-
-            sql = `select toid, name from Users inner join Follows on Users.id = Follows.toid where fromid = "${fromid}" and toid = "${toid}"`;
-            objects = await osql.connect(sql);
-            console.log(objects);
-
-            var toname = objects[0].name;
-            document.getElementById("follow-result").innerHTML = "<b>" + toname + "</b>(" + toid + ")さんをフォローしました";
-            document.getElementById("tf2").value = "";
-            showTables();
-        }
-
-        async function followByButton() {
-            var fromid = document.getElementById("tf1").value;
-            var toid = document.getElementById("tf2").value;
+        async function followByButton(toid) {
+            var fromid = osql.getParam("userid");
 
             var sql = `insert into Follows values("${fromid}", "${toid}");`;
             var objects = await osql.connect(sql);
@@ -84,7 +60,7 @@
                 html += "<tr>";
                 html += "<td>" + object.id + "</td>";
                 html += "<td>" + object.name + "</td>";
-                html += "<td>" + `<button onclick="button2Pressed()">フォローする</button>` + "</td>";
+                html += "<td>" + `<button onclick="followByButton('${object.id}')">フォローする</button>` + "</td>";
                 html += "</tr>";
             }
             html += "</table>";
