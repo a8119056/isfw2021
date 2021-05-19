@@ -13,9 +13,7 @@
         var x;
         $().ready(function() {
             setUserId();
-            showAllUsers();
-            showFollowing();
-            showFollowers();
+            showTables();
         });
 
         function button1Pressed() {
@@ -37,6 +35,10 @@
 
             document.getElementById("follow-result").innerHTML = "フォローしました";
             document.getElementById("tf2").value = "";
+            showTables();
+        }
+
+        function showTables() {
             showAllUsers();
             showFollowing();
             showFollowers();
