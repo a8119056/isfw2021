@@ -103,8 +103,7 @@
 </head>
 
 <body>
-    <h1>Tweets</h1>
-    <h2>フォロー</h2>
+    <h1>フォロー</h1>
     フォロー元のID:
     <input id="tf1" type="text" disabled>
     <br> フォロー先のID:
@@ -112,9 +111,18 @@
     <button onclick="">フォロー</button>
     <p id="tweet-result"><br></p>
     <hr>
-    <p id="users-table"></p>
-    <p id="following-table"></p>
-    <p id="followers-table"></p>
+    <div style="float: left;">
+        <h3>ユーザ一覧</h3>
+        <p id="users-table"></p>
+    </div>
+    <div style="float: left; margin-left: 20px;">
+        <h3>フォロー中</h3>
+        <p id="following-table"></p>
+    </div>
+    <div style="float: left; margin-left: 20px;">
+        <h3>フォロワー</h3>
+        <p id="followers-table"></p>
+    </div>
 </body>
 
 </html>
