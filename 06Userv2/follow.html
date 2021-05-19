@@ -12,8 +12,16 @@
     <script>
         var x;
         $().ready(function() {
+            paramCheck();
             showTables();
         });
+
+        async function paramCheck() {
+            var userid = osql.getParam("userid");
+            var sql = `select * from Users where id = "${userid}"`;
+            var objects = await osql.connect(sql);
+            window.alert(objects[0].name);
+        }
 
         async function follow(toid) {
             var fromid = osql.getParam("userid");
