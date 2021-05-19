@@ -32,8 +32,12 @@
             document.getElementById('result').innerHTML = html;
         }
 
-        function execDelete() {
-            window.alert("aaa");
+        async function execDelete() {
+            var userid = document.getElementById("delete").value;
+            var sql = `delete from Users where id = "${userid}";`;
+            await osql.connect(sql);
+            document.getElementById("delete-result").innerHTML = "削除しました";
+            execSelect();
         }
     </script>
 
@@ -42,8 +46,9 @@
 <body>
     <h1>Users</h1>
     <hr> ID:
-    <input id="tf1" type="text">
+    <input id="delete" type="text">
     <button onclick="execDelete()">削除</button>
+    <p id="delete-result">　</p>
     <hr>
     <p id="result">xxxx</p>
 </body>
