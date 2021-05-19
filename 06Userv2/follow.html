@@ -19,17 +19,10 @@
             var userid = osql.getParam("userid");
             var sql = "select id from Users;";
             var objects = await osql.connect(sql);
-            var userExists = false;
             for (var i = 0; i < objects.length; i++) {
-                if (userExists) {
+                if (objects[i].id === userid) {
                     showTables();
-                } else if (objects[i].id === userid) {
-                    userExists = true;
-                    window.alert("ok!");
                 }
-            }
-            if (!userExists) {
-                window.alert("ng!");
             }
         }
 
