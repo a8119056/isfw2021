@@ -13,8 +13,7 @@
         var x;
         $().ready(function() {
             setUserId();
-            doSelect();
-            setInterval(doSelect, 2000);
+            showAllUsers();
         });
 
         function button1Pressed() {
@@ -42,25 +41,22 @@
             document.getElementById("tf2").value = "";
         }
 
-        async function doSelect() {
-            var searchWord = document.getElementById("tweet-search").value;
-            var sql = "select * from Tweets where tweet like '%" + searchWord + "%' order by time desc limit 20";
+        async function showAllUsers() {
+            var sql = "select * from Users;";
             var objects = await osql.connect(sql);
             console.log(objects);
             var html = "";
             html += "<table border=1>";
-            html += "<tr><th>id</th><th>name</th><th>tweet</th><th>time</th></tr>";
+            html += "<tr><th>id</th><th>name</th></tr>";
             for (var i = 0; i < objects.length; i++) {
                 var object = objects[i];
                 html += "<tr>";
                 html += "<td>" + object.id + "</td>";
                 html += "<td>" + object.name + "</td>";
-                html += "<td>" + object.tweet + "</td>";
-                html += "<td>" + object.time + "</td>";
                 html += "</tr>";
             }
             html += "</table>";
-            document.getElementById("search-result").innerHTML = html;
+            document.getElementById("users-result").innerHTML = html;
         }
     </script>
 
@@ -68,27 +64,15 @@
 
 <body>
     <h1>Tweets</h1>
-    <table>
-        <tr>
-            <td valign="top">
-                <h2>ツイート</h2>
-                名前:
-                <input id="tf1" value="名無し" type="text">
-                <br> tweet:
-                <input id="tf2" type="text">
-                <button onclick="button1Pressed()">tweet</button>
-                <p id="tweet-result"><br></p>
-            </td>
-            <td width="10%"></td>
-            <td valign="top">
-                <h2>検索</h2>
-                <input id="tweet-search" value="" placeholder="ツイート内容を入力">
-                <button onclick="button2Pressed()">表示</button>
-            </td>
-        </tr>
-    </table>
+    <h2>フォロー</h2>
+    フォロー元のID:
+    <input id="tf1" type="text" disabled>
+    <br> フォロー先のID:
+    <input id="tf2" type="text">
+    <button onclick="">フォロー</button>
+    <p id="tweet-result"><br></p>
     <hr>
-    <p id="search-result"></p>
+    <p id="users-result"></p>
 </body>
 
 </html>
