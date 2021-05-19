@@ -17,7 +17,12 @@
         });
 
         function button1Pressed() {
-            execFollow();
+            followByInput();
+        }
+
+        function button2Pressed() {
+            window.alert("");
+            //followByButton();
         }
 
         function setUserId() {
@@ -25,7 +30,7 @@
             document.getElementById("tf1").value = userid;
         }
 
-        async function execFollow() {
+        async function followByInput() {
             var fromid = document.getElementById("tf1").value;
             var toid = document.getElementById("tf2").value;
 
@@ -33,7 +38,30 @@
             var objects = await osql.connect(sql);
             console.log(objects);
 
-            document.getElementById("follow-result").innerHTML = "フォローしました";
+            sql = `select toid, name from Users inner join Follows on Users.id = Follows.toid where fromid = "${fromid}" and toid = "${toid}"`;
+            objects = await osql.connect(sql);
+            console.log(objects);
+
+            var toname = objects[0].name;
+            document.getElementById("follow-result").innerHTML = "<b>" + toname + "</b>(" + toid + ")さんをフォローしました";
+            document.getElementById("tf2").value = "";
+            showTables();
+        }
+
+        async function followByButton() {
+            var fromid = document.getElementById("tf1").value;
+            var toid = document.getElementById("tf2").value;
+
+            var sql = `insert into Follows values("${fromid}", "${toid}");`;
+            var objects = await osql.connect(sql);
+            console.log(objects);
+
+            sql = `select toid, name from Users inner join Follows on Users.id = Follows.toid where fromid = "${fromid}" and toid = "${toid}"`;
+            objects = await osql.connect(sql);
+            console.log(objects);
+
+            var toname = objects[0].name;
+            document.getElementById("follow-result").innerHTML = "<b>" + toname + "</b>(" + toid + ")さんをフォローしました";
             document.getElementById("tf2").value = "";
             showTables();
         }
@@ -50,12 +78,13 @@
             console.log(objects);
             var html = "";
             html += "<table border=1>";
-            html += "<tr><th>id</th><th>name</th></tr>";
+            html += "<tr><th>id</th><th>name</th><th>follow</th></tr>";
             for (var i = 0; i < objects.length; i++) {
                 var object = objects[i];
                 html += "<tr>";
                 html += "<td>" + object.id + "</td>";
                 html += "<td>" + object.name + "</td>";
+                html += "<td>" + `<button onclick="button2Pressed()">フォローする</button>` + "</td>";
                 html += "</tr>";
             }
             html += "</table>";
@@ -112,15 +141,15 @@
     <button onclick="button1Pressed()">フォローする</button>
     <p id="follow-result"><br></p>
     <hr>
-    <div style="float: left;">
+    <div style="float: left; margin-right: 20px;">
         <h3>ユーザ一覧</h3>
         <p id="users-table"></p>
     </div>
-    <div style="float: left; margin-left: 20px;">
+    <div style="float: left; margin-right: 20px;">
         <h3>フォロー中</h3>
         <p id="following-table"></p>
     </div>
-    <div style="float: left; margin-left: 20px;">
+    <div style="float: left;">
         <h3>フォロワー</h3>
         <p id="followers-table"></p>
     </div>
