@@ -20,14 +20,16 @@
             var sql = `insert into Follows values("${fromid}", "${toid}");`;
             var objects = await osql.connect(sql);
             console.log(objects);
+            showResult(fromid, toid);
+            showTables();
+        }
 
-            sql = `select toid, name from Users inner join Follows on Users.id = Follows.toid where fromid = "${fromid}" and toid = "${toid}"`;
-            objects = await osql.connect(sql);
+        async function showResult(fromid, toid) {
+            var sql = `select toid, name from Users inner join Follows on Users.id = Follows.toid where fromid = "${fromid}" and toid = "${toid}"`;
+            var objects = await osql.connect(sql);
             console.log(objects);
-
             var toname = objects[0].name;
             document.getElementById("follow-result").innerHTML = "<b>" + toname + "</b>(" + toid + ")さんをフォローしました";
-            showTables();
         }
 
         function showTables() {
