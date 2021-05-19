@@ -19,11 +19,7 @@
         });
 
         function button1Pressed() {
-            doInsert();
-        }
-
-        function button2Pressed() {
-            doSelect();
+            execFollow();
         }
 
         function setUserId() {
@@ -31,7 +27,7 @@
             document.getElementById("tf1").value = userid;
         }
 
-        async function doInsert() {
+        async function execFollow() {
             var fromid = document.getElementById("tf1").value;
             var toid = document.getElementById("tf2").value;
 
@@ -111,8 +107,8 @@
     <input id="tf1" type="text" disabled>
     <br> フォロー先のID:
     <input id="tf2" type="text">
-    <button onclick="">フォロー</button>
-    <p id="tweet-result"><br></p>
+    <button onclick="button1Pressed()">フォローする</button>
+    <p id="follow-result"><br></p>
     <hr>
     <div style="float: left;">
         <h3>ユーザ一覧</h3>
