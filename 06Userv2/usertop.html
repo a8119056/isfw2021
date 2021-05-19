@@ -10,8 +10,14 @@
     <script type="text/javascript" src="../osql.js"></script>
 
     <script>
-        var username = sessionStorage.getItem("username");
-        window.alert(username);
+        $().ready(function() {
+            init();
+        });
+
+        function init() {
+            var username = sessionStorage.getItem("username");
+            document.getElementById("welcome").innerHTML = "ようこそ" + username + "さん";
+        }
     </script>
 
 </head>
