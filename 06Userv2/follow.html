@@ -20,16 +20,33 @@
             var sql = `insert into Follows values("${fromid}", "${toid}");`;
             var objects = await osql.connect(sql);
             console.log(objects);
-            showResult(fromid, toid);
+            showFollowResult(toid);
             showTables();
         }
 
-        async function showResult(fromid, toid) {
-            var sql = `select toid, name from Users inner join Follows on Users.id = Follows.toid where fromid = "${fromid}" and toid = "${toid}"`;
+        async function unfollow(toid) {
+            var fromid = osql.getParam("userid");
+            var sql = `delete from Follows where fromid = "${fromid}" and toid = "${toid}";`;
+            var objects = await osql.connect(sql);
+            console.log(objects);
+            showUnfollowResult(toid);
+            showTables();
+        }
+
+        async function showFollowResult(toid) {
+            var sql = `select id, name from Users where id = "${toid}";`;
             var objects = await osql.connect(sql);
             console.log(objects);
             var toname = objects[0].name;
             document.getElementById("follow-result").innerHTML = "<b>" + toname + "</b>(" + toid + ")さんをフォローしました";
+        }
+
+        async function showUnfollowResult(toid) {
+            var sql = `select id, name from Users where id = "${toid}"`;
+            var objects = await osql.connect(sql);
+            console.log(objects);
+            var toname = objects[0].name;
+            document.getElementById("follow-result").innerHTML = "<b>" + toname + "</b>(" + toid + ")さんへのフォローを解除しました";
         }
 
         function showTables() {
@@ -51,7 +68,7 @@
                 html += "<tr>";
                 html += "<td>" + object.id + "</td>";
                 html += "<td>" + object.name + "</td>";
-                html += "<td>" + `<button onclick="follow('${object.id}')">フォローする</button>` + "</td>";
+                html += "<td>" + `<button onclick="follow('${object.id}')">フォロー</button>` + "</td>";
                 html += "</tr>";
             }
             html += "</table>";
@@ -65,12 +82,13 @@
             console.log(objects);
             var html = "";
             html += "<table border=1>";
-            html += "<tr><th>id</th><th>name</th></tr>";
+            html += "<tr><th>id</th><th>name</th><th>unfollow</th></tr>";
             for (var i = 0; i < objects.length; i++) {
                 var object = objects[i];
                 html += "<tr>";
                 html += "<td>" + object.toid + "</td>";
                 html += "<td>" + object.name + "</td>";
+                html += "<td>" + `<button onclick="unfollow('${object.toid}')">フォロー解除</button>` + "</td>";
                 html += "</tr>";
             }
             html += "</table>";
@@ -102,7 +120,7 @@
 <body>
     <div style="width: 98.5%; top: 0; position: fixed; background: #FFFFFF;">
         <h1>フォロー</h1>
-        <p id="follow-result"><br></p>
+        <p id="follow-result">ボタンでフォローとフォロー解除を実行します</p>
         <hr style="margin-bottom: 0px;">
     </div>
     <div style="padding-top: 120px">
