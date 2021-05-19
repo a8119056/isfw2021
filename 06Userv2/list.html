@@ -29,7 +29,7 @@
                 html = html + '</tr>';
             }
             html = html + '</table>';
-            document.getElementById('result').innerHTML = html;
+            document.getElementById('select-result').innerHTML = html;
         }
 
         async function execDelete() {
@@ -48,9 +48,9 @@
     <hr> ID:
     <input id="delete" type="text">
     <button onclick="execDelete()">削除</button>
-    <p id="delete-result">　</p>
+    <p id="delete-result"><br></p>
     <hr>
-    <p id="result">xxxx</p>
+    <p id="select-result"></p>
 </body>
 
 </html>
