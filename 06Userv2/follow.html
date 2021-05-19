@@ -18,9 +18,8 @@
 
         async function paramCheck() {
             var userid = osql.getParam("userid");
-            var sql = `select * from Users where id = "${userid}"`;
+            var sql = "select id from Users;";
             var objects = await osql.connect(sql);
-            window.alert(objects[0].name);
         }
 
         async function follow(toid) {
