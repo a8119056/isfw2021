@@ -17,19 +17,25 @@
 
         async function paramCheck() {
             var userid = osql.getParam("userid");
-            var sql = "select id from Users;";
+            var sql = "select id, name from Users;";
             var objects = await osql.connect(sql);
             var userExists = false;
             for (var i = 0; i < objects.length; i++) {
                 if (objects[i].id === userid) {
+                    var username = objects[i].name;
                     userExists = true;
                     document.getElementById("main").style.display = "block";
+                    welcomeUser(userid, username);
                     showTables();
                 }
             }
             if (!userExists) {
                 document.getElementById("follow-result").innerHTML = "ログインIDが不正です<br><a href='index.html'>こちら</a>から再度ログインしてださい";
             }
+        }
+
+        function welcomeUser(userid, username) {
+            document.getElementById("welcome").innerHTML = "ようこそ，" + username + "さん (ログインID: " + userid + ")";
         }
 
         async function follow(toid) {
@@ -59,7 +65,7 @@
         }
 
         async function showUnfollowResult(toid) {
-            var sql = `select id, name from Users where id = "${toid}"`;
+            var sql = `select id, name from Users where id = "${toid}";`;
             var objects = await osql.connect(sql);
             console.log(objects);
             var toname = objects[0].name;
@@ -137,10 +143,11 @@
 <body>
     <div style="width: 98.5%; top: 0; position: fixed; background: #FFFFFF;">
         <h1>フォロー</h1>
+        <p id="welcome"></p>
         <p id="follow-result">ボタンでフォローとフォロー解除を実行します</p>
         <hr style="margin-bottom: 0px;">
     </div>
-    <div id="main" style="padding-top: 120px; display: none;">
+    <div id="main" style="padding-top: 170px; display: none;">
         <div style="float: left; margin-right: 20px;">
             <h3>未フォロー</h3>
             <p id="users-table"></p>
