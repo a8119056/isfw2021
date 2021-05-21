@@ -26,11 +26,21 @@
                 html = html + '<td>' + object.id + '</td>';
                 html = html + '<td>' + object.name + '</td>';
                 html = html + '<td>' + '<a href="update.html?userid=' + object.id + '">変更</a>' + '</td>';
-                html = html + '<td>' + `<button onclick="execDelete('${object.id}')">削除</button>` + '</td>';
+                html = html + '<td>' + `<button onclick="confirmDelete('${object.id}')">削除</button>` + '</td>';
                 html = html + '</tr>';
             }
             html = html + '</table>';
             document.getElementById('result').innerHTML = html;
+        }
+
+        async function confirmDelete(userid) {
+            var sql = `select name from Users where id = "${userid}";`;
+            var objects = await osql.connect(sql);
+            var username = objects[0].name;
+            var confirmed = window.confirm(username + "(" + userid + ")さんの登録を削除します\nよろしいですか？");
+            if (confirmed) {
+                execDelete(userid);
+            }
         }
 
         async function execDelete(userid) {
